@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors     = [ "develumpen" ]
   spec.email       = [ "develumpen@breakabletoys.com" ]
   spec.homepage    = "https://github.com/develumpencom/users"
-  # spec.summary     = "TODO: Summary of Users."
+  spec.summary = "Simple user authentication engine"
   spec.description = "Simple user authentication engine"
   spec.license     = "MIT"
 
