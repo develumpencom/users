@@ -20,4 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", ">= 8.0.1"
   spec.add_dependency "bcrypt"
+  spec.add_dependency "faraday", "~> 2.12"
+  spec.add_dependency "jwt", "~> 2.10"
 end
