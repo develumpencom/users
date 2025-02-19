@@ -8,6 +8,35 @@ module Users
       @routes = Engine.routes
     end
 
+    teardown do
+      Users.configuration.disable_form_access = false
+      Rails.application.reload_routes!
+    end
+
+    test "has new session route" do
+      assert_routing "/session/new", controller: "users/sessions", action: "new"
+    end
+
+    test "does not have new session route if disable_form_access" do
+      Users.configuration.disable_form_access = true
+      Rails.application.reload_routes!
+
+      # TODO: There's gotta be a better way to test this.
+      assert_not @routes.named_routes.route_defined?(:new_session_path)
+    end
+
+    test "has create session route" do
+      assert_routing({ path: "/session", method: :post }, controller: "users/sessions", action: "create")
+    end
+
+    test "does not have create session route if disable_form_access" do
+      # TODO: I don't know how to test this one.
+    end
+
+    test "has destroy session route" do
+      assert_routing({ path: "/session", method: :delete }, controller: "users/sessions", action: "destroy")
+    end
+
     test "renders sign in form" do
       get new_session_url
 
