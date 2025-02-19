@@ -24,5 +24,10 @@ class Users::Configuration
 
   config_accessor :oauth_server_url,
                   :breakable_toys_client_id,
-                  :breakable_toys_client_secret
+                  :breakable_toys_client_secret,
+                  :disable_form_access
+
+  def initialize
+    self.disable_form_access = false
+  end
 end

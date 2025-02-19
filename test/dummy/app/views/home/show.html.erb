@@ -1,8 +1,5 @@
-<h1>Home#show</h1>
-<p>Find me in app/views/home/show.html.erb</p>
-
 <% if authenticated? %>
-  <p>You're authenticated. <%= button_to "Sign out", users.session_path, method: :delete %></p>
+  <p>Authenticated as <%= Current.user.email_address %>. <%= button_to "Sign out", users.session_path, method: :delete %></p>
 <% else %>
   <p>You're not authenticated. <%= link_to "Authenticate", users.new_session_path %></p>
 <% end %>
