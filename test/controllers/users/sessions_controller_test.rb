@@ -21,8 +21,9 @@ module Users
       Users.configuration.disable_form_access = true
       Rails.application.reload_routes!
 
-      # TODO: There's gotta be a better way to test this.
-      assert_not @routes.named_routes.route_defined?(:new_session_path)
+      assert_raise ActionController::UrlGenerationError do
+        url_for(controller: "users/sessions", action: "new")
+      end
     end
 
     test "has create session route" do
@@ -30,7 +31,12 @@ module Users
     end
 
     test "does not have create session route if disable_form_access" do
-      # TODO: I don't know how to test this one.
+      Users.configuration.disable_form_access = true
+      Rails.application.reload_routes!
+
+      assert_raise ActionController::UrlGenerationError do
+        url_for(controller: "users/sessions", action: "create")
+      end
     end
 
     test "has destroy session route" do
