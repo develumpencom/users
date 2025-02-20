@@ -79,5 +79,14 @@ module Users
       assert_redirected_to new_session_url
       assert_not cookies[:session_id].present?
     end
+
+    test "if signed in, new session page redirects to home" do
+      post session_url, params: { email_address: "one@email.com", password: "password" }
+      assert cookies[:session_id].present?
+
+      get new_session_url
+
+      assert_redirected_to root_url
+    end
   end
 end
