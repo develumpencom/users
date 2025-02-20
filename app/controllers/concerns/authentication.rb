@@ -10,6 +10,11 @@ module Authentication
     def allow_unauthenticated_access(**options)
       skip_before_action :require_authentication, **options
     end
+
+    def require_unauthenticated_access(**options)
+      allow_unauthenticated_access(**options)
+      before_action :redirect_authenticated_users_to_root, **options
+    end
   end
 
   private
@@ -49,5 +54,9 @@ module Authentication
     def terminate_session
       Current.session.destroy
       cookies.delete(:session_id)
+    end
+
+    def redirect_authenticated_users_to_root
+      redirect_to main_app.root_path if authenticated?
     end
 end
