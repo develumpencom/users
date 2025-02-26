@@ -37,7 +37,7 @@ module Authentication
 
     def request_authentication
       session[:return_to_after_authenticating] = request.url
-      redirect_to users.new_session_path
+      redirect_to request_authentication_path
     end
 
     def after_authentication_url
@@ -58,5 +58,11 @@ module Authentication
 
     def redirect_authenticated_users_to_root
       redirect_to main_app.root_path if authenticated?
+    end
+
+    def request_authentication_path
+      Users.configuration.disable_form_access ?
+        main_app.root_path :
+        users.new_session_path
     end
 end
