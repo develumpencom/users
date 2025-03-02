@@ -17,7 +17,13 @@ module Users
 
     def destroy
       terminate_session
-      redirect_to users.new_session_path, alert: "You have been signed out correctly."
+      redirect_to after_sign_out_url, alert: "You have been signed out correctly."
+    end
+
+    private
+
+    def after_sign_out_url
+      Users.configuration.disable_form_access ? main_app.root_url : users.new_session_path
     end
   end
 end

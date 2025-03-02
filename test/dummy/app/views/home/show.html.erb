@@ -1,5 +1,12 @@
 <% if authenticated? %>
   <p>Authenticated as <%= Current.user.email_address %>. <%= button_to "Sign out", users.session_path, method: :delete %></p>
 <% else %>
-  <p>You're not authenticated. <%= link_to "Authenticate", users.new_session_path %></p>
+  <p>
+    You're not authenticated.
+    <% if Users.configuration.disable_form_access %>
+      <%= link_to "Sign in with Breakable Toys", users.oauth_auth_path %>
+    <% else %>
+      <%= link_to "Authenticate", users.new_session_path %>
+    <% end %>
+  </p>
 <% end %>
